@@ -13,6 +13,13 @@ var config = {
     }
 }
 
+function fetchJSON(url) {
+    return fetch(url)
+      .then(function(response) {
+        return response.json();
+      });
+  }
+
 mapView = L.tileLayer(config.osm.url, {
     minZoom : config.osm.minZoom,
     maxZoom : config.osm.maxZoom,
@@ -33,4 +40,6 @@ $("document").ready( function() {
         maxBounds: bounds,
         maxBoundsViscosity: 0.85
       });
+
+    L.geoJSON(paris2016).addTo(map)
 });

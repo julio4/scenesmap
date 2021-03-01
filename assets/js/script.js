@@ -1,3 +1,4 @@
+
 var config = {
     coords : {
         x1 : [48.91619985711495, 2.231047776092844],
@@ -20,6 +21,16 @@ function fetchJSON(url) {
       });
   }
 
+  function onEachFeature(feature, layer) {
+    var popupContent = "";
+
+    if (feature.properties && feature.properties.nom_tournage) {
+        popupContent += feature.properties.nom_tournage + "";
+    }
+
+    layer.bindPopup(popupContent);
+}
+
 mapView = L.tileLayer(config.osm.url, {
     minZoom : config.osm.minZoom,
     maxZoom : config.osm.maxZoom,
@@ -41,5 +52,20 @@ $("document").ready( function() {
         maxBoundsViscosity: 0.85
       });
 
-    L.geoJSON(paris2016).addTo(map)
+
+    var renderCanvas = L.canvas({ padding: 0.2, tolerance: 0.1 });
+    var markers = L.markerClusterGroup();
+
+    var geoJsonLayer = L.geoJSON(paris2016,{
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, {
+                renderer: renderCanvas,
+                color: '#3388ff'
+            });
+        },
+        onEachFeature: onEachFeature
+    });
+
+    markers.addLayer(geoJsonLayer);
+    map.addLayer(markers);
 });

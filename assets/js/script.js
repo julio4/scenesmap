@@ -1,4 +1,4 @@
-
+// Variables de configuration
 var config = {
     coords : {
         x1 : [48.91619985711495, 2.231047776092844],
@@ -14,23 +14,7 @@ var config = {
     }
 }
 
-function fetchJSON(url) {
-    return fetch(url)
-      .then(function(response) {
-        return response.json();
-      });
-  }
-
-  function onEachFeature(feature, layer) {
-    var popupContent = "";
-
-    if (feature.properties && feature.properties.nom_tournage) {
-        popupContent += feature.properties.nom_tournage + "";
-    }
-
-    layer.bindPopup(popupContent);
-}
-
+//Propriétés de la map
 mapView = L.tileLayer(config.osm.url, {
     minZoom : config.osm.minZoom,
     maxZoom : config.osm.maxZoom,
@@ -42,8 +26,10 @@ mapView = L.tileLayer(config.osm.url, {
 })
 bounds = new L.LatLngBounds(new L.LatLng(...config.coords.x1), new L.LatLng(...config.coords.x2));
 
+//Après chargement de la page
 $("document").ready( function() {
 
+    //Création de la map
     var map = new L.Map('map', {
         center: bounds.getCenter(),
         zoom: 13,
@@ -52,20 +38,74 @@ $("document").ready( function() {
         maxBoundsViscosity: 0.85
       });
 
-
+    //Le canva sur lesquel les markers seront affiché (et non pas dans le DOM, pour la performance)
     var renderCanvas = L.canvas({ padding: 0.2, tolerance: 0.1 });
-    var markers = L.markerClusterGroup();
+    
+    //Le Grouper de marker afin de réaliser des fitres performants
+    var mcg = L.markerClusterGroup(),
+        films = L.featureGroup.subGroup(mcg),
+        seriesTV = L.featureGroup.subGroup(mcg),
+        seriesWeb = L.featureGroup.subGroup(mcg),
+        control = L.control.layers(null, null, { collapsed: false });
+    mcg.addTo(map)
 
-    var geoJsonLayer = L.geoJSON(paris2016,{
-        pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, {
-                renderer: renderCanvas,
-                color: '#3388ff'
-            });
-        },
-        onEachFeature: onEachFeature
+    //Import des différents points geoJSON avec filtre
+    function onEachFeature(feature, layer) {
+        var popupContent = "";
+        if (feature.properties && feature.properties.nom_tournage) {
+            popupContent += feature.properties.nom_tournage + "";
+        }
+        layer.bindPopup(popupContent);
+    }
+    
+    function pointToLayer(feature, latlng) {
+        return L.circleMarker(latlng, {
+            renderer: renderCanvas,
+            color: '#3388ff'
+        });
+    }
+    
+    var gJson_films = L.geoJSON(paris2016,{
+        pointToLayer: pointToLayer,
+        onEachFeature: onEachFeature,
+        filter: function(feature, layer) {
+            return feature.properties.type_tournage == "Long m\u00e9trage";
+        }
+    });
+    var gJson_serieWeb = L.geoJSON(paris2016,{
+        pointToLayer: pointToLayer,
+        onEachFeature: onEachFeature,
+        filter: function(feature, layer) {
+            return feature.properties.type_tournage == "S\u00e9rie Web";
+        }
+    });
+    var gJson_serieTV = L.geoJSON(paris2016,{
+        pointToLayer: pointToLayer,
+        onEachFeature: onEachFeature,
+        filter: function(feature, layer) {
+            return feature.properties.type_tournage == "T\u00e9l\u00e9film" || feature.properties.type_tournage == "S\u00e9rie TV";
+        }
     });
 
-    markers.addLayer(geoJsonLayer);
-    map.addLayer(markers);
+    //Ajouts des différents layers et markers par groupe
+    films.addLayer(gJson_films);
+    gJson_films.addTo(films)
+
+    seriesWeb.addLayer(gJson_serieWeb);
+    gJson_serieWeb.addTo(seriesWeb)
+
+    seriesTV.addLayer(gJson_serieTV);
+    gJson_serieTV.addTo(seriesTV)
+
+    //Barre de contrôle
+    control.addOverlay(films, 'Films');
+    control.addOverlay(seriesTV, 'Séries TV');
+    control.addOverlay(seriesWeb, 'Séries Web');
+    control.addTo(map);
+
+    //ajout sur la map
+    films.addTo(map)
+    seriesWeb.addTo(map)
+    seriesTV.addTo(map)
+    map.addLayer(mcg);
 });

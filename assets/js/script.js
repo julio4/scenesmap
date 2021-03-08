@@ -22,13 +22,44 @@ function fetchJSON(url) {
   }
 
   function onEachFeature(feature, layer) {
-    var popupContent = "";
+    /*var popupContent = "";
 
     if (feature.properties && feature.properties.nom_tournage) {
         popupContent += feature.properties.nom_tournage + "";
     }
 
-    layer.bindPopup(popupContent);
+    layer.bindPopup(popupContent);*/
+    var title = "";
+    var director = "";
+    var annee = "";
+    var address = "";
+    var type = "";
+
+    if (feature.properties && feature.properties.nom_tournage) {
+        title += feature.properties.nom_tournage + "";
+    }
+    if (feature.properties && feature.properties.nom_realisateur) {
+        director += feature.properties.nom_realisateur + "";
+    }
+    if (feature.properties && feature.properties.annee_tournage) {
+        annee += feature.properties.annee_tournage + "";
+    }
+    if (feature.properties && feature.properties.adresse_lieu) {
+        address += feature.properties.adresse_lieu + "";
+    }
+    if (feature.properties && feature.properties.type_tournage) {
+        type += feature.properties.type_tournage + "";
+    }
+    layer.on({
+        click: function populate(){
+            $("#information").show();
+            document.getElementById('title').innerHTML = title
+            document.getElementById('director').innerHTML = director
+            document.getElementById('annee').innerHTML = annee
+            document.getElementById('address').innerHTML = address
+            document.getElementById('type').innerHTML = type
+        }
+    })
 }
 
 mapView = L.tileLayer(config.osm.url, {

@@ -23,16 +23,33 @@
     <!-- Include Stylesheet and Javascript -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <script src="./assets/js/script.js"></script>
+    <script src="assets/js/panel.js"></script>
 
     <!-- For responsive purpose -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
+    <div id='information'>
+        <div>
+            <h1 id="title"></h1>
+            <h3 id="director"></h3>
+            <p id="annee"></p>
+            <p id="address"></p>
+            <p id="type"></p>
+        </div>
+        <button id="cancel">X</button>
+        
+    </div>
+    <div id="sidebar">
+        
+    </div>
     <div id='container'>
         <!-- Inject map here -->
         <div id="map"></div>
     </div>
+    
+    
 </body>
 
 </html>

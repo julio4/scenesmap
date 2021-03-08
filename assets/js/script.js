@@ -14,7 +14,47 @@ var config = {
     }
 }
 
-//Propriétés de la map
+  function onEachFeature(feature, layer) {
+    /*var popupContent = "";
+
+    if (feature.properties && feature.properties.nom_tournage) {
+        popupContent += feature.properties.nom_tournage + "";
+    }
+
+    layer.bindPopup(popupContent);*/
+    var title = "";
+    var director = "";
+    var annee = "";
+    var address = "";
+    var type = "";
+
+    if (feature.properties && feature.properties.nom_tournage) {
+        title += feature.properties.nom_tournage + "";
+    }
+    if (feature.properties && feature.properties.nom_realisateur) {
+        director += feature.properties.nom_realisateur + "";
+    }
+    if (feature.properties && feature.properties.annee_tournage) {
+        annee += feature.properties.annee_tournage + "";
+    }
+    if (feature.properties && feature.properties.adresse_lieu) {
+        address += feature.properties.adresse_lieu + "";
+    }
+    if (feature.properties && feature.properties.type_tournage) {
+        type += feature.properties.type_tournage + "";
+    }
+    layer.on({
+        click: function populate(){
+            $("#information").show();
+            document.getElementById('title').innerHTML = title
+            document.getElementById('director').innerHTML = director
+            document.getElementById('annee').innerHTML = annee
+            document.getElementById('address').innerHTML = address
+            document.getElementById('type').innerHTML = type
+        }
+    })
+}
+
 mapView = L.tileLayer(config.osm.url, {
     minZoom : config.osm.minZoom,
     maxZoom : config.osm.maxZoom,
@@ -49,15 +89,7 @@ $("document").ready( function() {
         control = L.control.layers(null, null, { collapsed: false });
     mcg.addTo(map)
 
-    //Import des différents points geoJSON avec filtre
-    function onEachFeature(feature, layer) {
-        var popupContent = "";
-        if (feature.properties && feature.properties.nom_tournage) {
-            popupContent += feature.properties.nom_tournage + "";
-        }
-        layer.bindPopup(popupContent);
-    }
-    
+    //Import des différents points geoJSON avec filtre    
     function pointToLayer(feature, latlng) {
         return L.circleMarker(latlng, {
             renderer: renderCanvas,

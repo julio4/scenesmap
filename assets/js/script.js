@@ -130,9 +130,9 @@ $("document").ready( function() {
     gJson_serieTV.addTo(seriesTV)
 
     //Barre de contrôle
-    control.addOverlay(films, 'Films');
-    control.addOverlay(seriesTV, 'Séries TV');
-    control.addOverlay(seriesWeb, 'Séries Web');
+    control.addOverlay(films, '<i class="fas fa-film" id="ic-blue"></i>');
+    control.addOverlay(seriesTV, '<i class="fas fa-tv" id="ic-green"></i>');
+    control.addOverlay(seriesWeb, '<i class="fab fa-youtube" id="ic-red"></i>');
     control.addTo(map);
 
     //ajout sur la map

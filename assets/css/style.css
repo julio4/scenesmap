@@ -41,23 +41,19 @@ body {
 }
 
 .leaflet-control-layers-overlays label:hover {
-  background-color: rgb(34, 34, 34);
+  background-color: #444 !important;
 }
 
 .leaflet-control-layers-overlays label:hover i#ic-red{
-  color:rgb(255, 75, 75);
+  color:#f94144;
 }
 
 .leaflet-control-layers-overlays label:hover i#ic-green{
-  color:rgb(2, 197, 2);
+  color:#90be6d;
 }
 
 .leaflet-control-layers-overlays label:hover i#ic-blue{
-  color:rgb(73, 73, 255);
-}
-
-input:checked {
-  background-color:rgb(255, 71, 71);
+  color:#577590;
 }
 
 input[type="checkbox"].leaflet-control-layers-selector {

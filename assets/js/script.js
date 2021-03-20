@@ -14,14 +14,8 @@ var config = {
     }
 }
 
+//Récupérer les informations du films et affichage dans le panel
   function onEachFeature(feature, layer) {
-    /*var popupContent = "";
-
-    if (feature.properties && feature.properties.nom_tournage) {
-        popupContent += feature.properties.nom_tournage + "";
-    }
-
-    layer.bindPopup(popupContent);*/
     var title = "";
     var director = "";
     var annee = "";

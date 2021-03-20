@@ -57,3 +57,39 @@ p{
 }
 
 
+.leaflet-control-layers {
+  width: 90px;
+  background-color: #555;
+  border: none !important;
+  margin-right: 0px !important;
+  border-radius: 0px;
+  padding: 0px;
+}
+
+.leaflet-control-layers-overlays label {
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 28px;
+}
+
+.leaflet-control-layers-overlays label:hover {
+  background-color: #444 !important;
+}
+
+.leaflet-control-layers-overlays label:hover i#ic-red{
+  color:#f94144;
+}
+
+.leaflet-control-layers-overlays label:hover i#ic-green{
+  color:#90be6d;
+}
+
+.leaflet-control-layers-overlays label:hover i#ic-blue{
+  color:#577590;
+}
+
+input[type="checkbox"].leaflet-control-layers-selector {
+  display: none;
+}

@@ -130,9 +130,15 @@ $("document").ready( function() {
     gJson_serieTV.addTo(seriesTV)
 
     //Barre de contrôle
-    control.addOverlay(films, 'Films');
-    control.addOverlay(seriesTV, 'Séries TV');
-    control.addOverlay(seriesWeb, 'Séries Web');
+    var colorsVar = {
+        "ic-blue" : "#577590",
+        "ic-green" : "#90be6d",
+        "ic-red" : "#f94144",
+        "default" : "orange"
+    }
+    control.addOverlay(films, '<i class="fas fa-film" id="ic-blue"></i>');
+    control.addOverlay(seriesTV, '<i class="fas fa-tv" id="ic-green"></i>');
+    control.addOverlay(seriesWeb, '<i class="fab fa-youtube" id="ic-red"></i>');
     control.addTo(map);
 
     //ajout sur la map
@@ -140,4 +146,22 @@ $("document").ready( function() {
     seriesWeb.addTo(map)
     seriesTV.addTo(map)
     map.addLayer(mcg);
+
+    //Pour le style de la barre de controle :
+    
+    function colorLayer(layer) {
+        let color = (colorsVar[$(layer).siblings('span').children('i').attr('id')] || colorsVar['default']);
+        $(layer).parentsUntil('.leaflet-control-layers-overlays','label').css('background-color', color)
+    }
+
+    let controls = $('.leaflet-control-layers-overlays input');
+
+    controls.each((i) => colorLayer(controls.eq(i)));
+
+    controls.click(function() {
+        if(this.checked)
+            colorLayer(this)
+        else
+            $(this).parentsUntil('.leaflet-control-layers-overlays','label').css('background-color', '#555')
+    });
 });

@@ -4,6 +4,28 @@ body {
     padding: 0;
 }
 
+@font-face {
+  font-family: "OpenSansBold";
+  src: url("../font/OpenSans-ExtraBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "OpenSansLight";
+  src: url("../font/OpenSans-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "OpenSansRegular";
+  src: url("../font/OpenSans-Regular.ttf") format("truetype");
+}
+h1 {
+  font-family: 'OpenSansBold' ;
+}
+h3{
+  font-family: 'OpenSansLight';
+}
+p{
+  font-family: 'OpenSansRegular';
+}
+
 #map {
   left: 0;
   top:0;
@@ -21,5 +43,17 @@ body {
   top:0;
   bottom: 0;
   left:0;
-  
+  visibility: hidden;
+  padding: 1%;
 }
+
+#cancel{
+  position: absolute;
+  right: 0;
+}
+
+.active {
+  visibility: visible !important;
+}
+
+

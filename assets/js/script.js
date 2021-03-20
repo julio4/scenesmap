@@ -45,11 +45,11 @@ var config = {
     }
     layer.on({
         click: function populate(){
-            $("#information").show();
+            $("#information").addClass('active');
             document.getElementById('title').innerHTML = title
             document.getElementById('director').innerHTML = director
             document.getElementById('annee').innerHTML = annee
-            document.getElementById('address').innerHTML = address
+            document.getElementById('address').innerHTML = ' <p><i class="fas fa-map-marker-alt"></i>' + address +'</p>'
             document.getElementById('type').innerHTML = type
         }
     })

@@ -1,8 +1,9 @@
-$(document).ready(function(){
-    $("#information").hide();
-    $("#cancel").on('click',hide);
 
-function hide() {
-    $("#information").hide()
-  } 
+$(document).ready(function(){
+  var pannel = $('#information');
+  var close =  $('#cancel');
+
+  close.click(()=>{
+    pannel.removeClass('active')
+  })
 });

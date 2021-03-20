@@ -1,9 +1,4 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
-}
-
+/*font*/
 @font-face {
   font-family: "OpenSansBold";
   src: url("../font/OpenSans-ExtraBold.ttf") format("truetype");
@@ -21,11 +16,74 @@ h1 {
 }
 h3{
   font-family: 'OpenSansLight';
+  letter-spacing: 0.1em;
+  font-weight: 400;
 }
 p{
   font-family: 'OpenSansRegular';
 }
 
+/*all*/
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*pannel*/
+#information {
+  background-color: rgba(255, 255, 255, 0.918);
+  max-width: 50%;
+  width: 25%;
+  position: absolute;
+  z-index: 6;
+  margin-top:12px;
+  visibility: hidden;
+  padding: 1%;
+  display: inline-table;
+}
+.active {
+  visibility: visible !important;
+}
+
+
+/*icons*/
+.fas, .fab{
+  margin-right: 5%;
+}
+
+#cancel{
+  position: absolute;
+  right: 0;
+  margin-right: 3%;
+  color: #af2729;
+}
+#film{
+  color: #577590;
+  margin-left: 15%;
+}
+
+#serieWeb{
+  color: #f94144;
+  margin-left: 15%;
+}
+
+#serieTv{
+  color: #90be6d ;
+  margin-left: 15%;
+}
+
+#localisation{
+  color: rgb(177, 62, 62);
+}
+
+#calendar{
+  color:rgb(163, 128, 95);
+}
+
+
+
+/*map*/
 #map {
   left: 0;
   top:0;
@@ -34,28 +92,6 @@ p{
   position: absolute;
   z-index: 1;
 }
-
-#information {
-  background-color: rgba(255, 255, 255, 0.808);
-  width: 25%;
-  position: absolute;
-  z-index: 6;
-  top:0;
-  bottom: 0;
-  left:0;
-  visibility: hidden;
-  padding: 1%;
-}
-
-#cancel{
-  position: absolute;
-  right: 0;
-}
-
-.active {
-  visibility: visible !important;
-}
-
 
 .leaflet-control-layers {
   width: 90px;

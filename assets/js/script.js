@@ -46,13 +46,29 @@ var config = {
     layer.on({
         click: function populate(){
             $("#information").addClass('active');
-            document.getElementById('title').innerHTML = title
-            document.getElementById('director').innerHTML = director
-            document.getElementById('annee').innerHTML = annee
-            document.getElementById('address').innerHTML = ' <p><i class="fas fa-map-marker-alt"></i>' + address +'</p>'
-            document.getElementById('type').innerHTML = type
+            document.getElementById('title').innerHTML = title.toUpperCase()
+            document.getElementById('director').innerHTML = director.toLowerCase().split(' ').map(changeMaj).join(' ');
+            document.getElementById('complements').innerHTML = '<p><i id="calendar" class="fas fa-calendar-alt"></i> ' + annee + '  '+icon(type) + type +' </p>'
+            document.getElementById('address').innerHTML = ' <p><i id="localisation" class="fas fa-map-marker-alt"></i> ' + address.toLowerCase().split(' ').map(changeMaj).join(' '); +'</p>'
+            
         }
     })
+}
+
+//Met la premiere lettre en Majuscule
+function changeMaj(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+//Retourne l'icone adapté au type
+function icon(type){
+    if (type == "Long m\u00e9trage"){
+        return '<i id="film" class="fas fa-film"></i>'
+    }else if(type == "T\u00e9l\u00e9film" || type == "S\u00e9rie TV"){
+        return '<i id="serieTv" class="fas fa-tv"></i>'
+    }else {
+        return '<i id="serieWeb" class="fab fa-youtube"></i>'
+    }
 }
 
 mapView = L.tileLayer(config.osm.url, {

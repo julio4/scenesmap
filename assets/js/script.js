@@ -85,7 +85,8 @@ $("document").ready( function() {
         zoom: 13,
         layers: [mapView],
         maxBounds: bounds,
-        maxBoundsViscosity: 0.85
+        maxBoundsViscosity: 0.85,
+        zoomControl: false
       });
 
     //Le canva sur lesquel les markers seront affiché (et non pas dans le DOM, pour la performance)
@@ -156,6 +157,11 @@ $("document").ready( function() {
     seriesWeb.addTo(map)
     seriesTV.addTo(map)
     map.addLayer(mcg);
+
+    //Bouton zoom
+    L.control.zoom({
+        position: 'bottomright'
+    }).addTo(map);
 
     //Pour le style de la barre de controle :
     

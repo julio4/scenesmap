@@ -37,7 +37,7 @@ body {
   max-width: 50%;
   width: 25%;
   position: absolute;
-  z-index: 6;
+  z-index: 1;
   margin-top:12px;
   opacity: 0;
   padding: 1%;
@@ -45,6 +45,7 @@ body {
 }
 .active {
   opacity: 1 !important;
+  z-index: 6 !important;
 }
 
 
